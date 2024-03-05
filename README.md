@@ -1,2 +1,0 @@
-# tomcat
-for learning purpose
