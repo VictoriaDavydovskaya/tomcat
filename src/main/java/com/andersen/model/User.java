@@ -1,4 +1,5 @@
 package com.andersen.model;
+
 public class User {
     private String name;
     private String surname;
