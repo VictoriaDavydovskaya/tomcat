@@ -5,11 +5,11 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>list</servlet-name>
+    <servlet-name>test_list</servlet-name>
     <servlet-class>com.andersen.servlets.ListServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>list</servlet-name>
-    <url-pattern>/list</url-pattern>
+    <servlet-name>test_list</servlet-name>
+    <url-pattern>/test_list</url-pattern>
   </servlet-mapping>
 </web-app>
