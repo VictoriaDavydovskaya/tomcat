@@ -1,7 +1,11 @@
 <html>
+<head>
+    <meta charset="utf-8">
+</head>
+
 <body>
-<h2>Hello World!</h2>
-<h2>Все пользователи</h2><br />
+
+<h2>All users</h2><br />
 
 <c:forEach var="user" items="${requestScope.users}">
     <ul>
