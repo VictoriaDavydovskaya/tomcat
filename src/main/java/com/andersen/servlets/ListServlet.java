@@ -27,7 +27,7 @@ public class ListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        //req.setAttribute("users", users);
+        req.setAttribute("users", users);
         req.getRequestDispatcher(index).forward(req, resp);
     }
 
