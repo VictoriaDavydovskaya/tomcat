@@ -57,15 +57,22 @@ public class UserDao {
     }
 
     public boolean updateUser(User user) throws SQLException {
-        boolean rawUpdated;
+        boolean rawUpdated = false;
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL)) {
+            connection.setAutoCommit(false);
+            connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.setInt(4, user.getId());
 
             rawUpdated = preparedStatement.executeUpdate() > 0;
+            Thread.sleep(10);
+
+            connection.commit();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         return rawUpdated;
     }
