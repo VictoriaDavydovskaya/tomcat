@@ -40,11 +40,19 @@ public class UserDao {
     // insert User
     public void insertUser(User user) throws SQLException {
         try(Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
+                CallableStatement callableStatement = connection.prepareCall("call insert_user(?, ?, ?)")){
+                /*PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER_SQL)) {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.executeUpdate();
+
+             */
+            callableStatement.setString(1, user.getName());
+            callableStatement.setString(2, user.getSurname());
+            callableStatement.setInt(3, user.getAge());
+            callableStatement.execute();
+
         }
     }
 
@@ -88,8 +96,8 @@ public class UserDao {
     public List<User> selectAllUsers(){
         List<User> users = new ArrayList<>();
         try(Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS)) {
-            ResultSet rs = preparedStatement.executeQuery();
+            Statement statement = connection.createStatement()) {
+            ResultSet rs = statement.executeQuery(SELECT_ALL_USERS);
 
             while (rs.next()){
                 int id = rs.getInt("id");
