@@ -1,21 +1,17 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 <body>
-
-<h2>All users</h2><br />
-
-<c:forEach var="user" items="${requestScope.users}">
-    <ul>
-
-        <li>${user.name}</li>
-        <li>Surname<c:out value="${user.surname}"/></li>
-        <li>Age<c:out value="${user.age}"/></li>
-    </ul>
-    <hr />
-
-</c:forEach>
-
+<h2>Hello World!</h2>
+<%!
+    String getFormattedDate()
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy hh:mm:ss");
+        return sdf.format(new Date());
+    }
+%>
+<i>Сегодня <%= getFormattedDate() %></i>
 </body>
 </html>
