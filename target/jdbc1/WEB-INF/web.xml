@@ -10,4 +10,9 @@
   <exception-type>java.lang.Exception</exception-type>
   <location>/error.jsp</location>
 </error-page>
+
+<welcome-file-list>
+    <welcome-file>user-list.jsp</welcome-file>
+</welcome-file-list>
+
 </web-app>
