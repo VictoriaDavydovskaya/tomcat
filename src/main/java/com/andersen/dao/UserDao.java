@@ -48,6 +48,7 @@ public class UserDao {
             preparedStatement.executeUpdate();
 
              */
+
             callableStatement.setString(1, user.getName());
             callableStatement.setString(2, user.getSurname());
             callableStatement.setInt(3, user.getAge());
@@ -61,18 +62,19 @@ public class UserDao {
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_SQL)) {
             connection.setAutoCommit(false);
-            connection.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
+            connection.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setInt(3, user.getAge());
             preparedStatement.setInt(4, user.getId());
 
             rawUpdated = preparedStatement.executeUpdate() > 0;
-            Thread.sleep(10);
-
+            //Thread.sleep(10_000);
             connection.commit();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        //} catch (InterruptedException e) {
+        //    throw new RuntimeException(e);
         }
         return rawUpdated;
     }
@@ -82,7 +84,6 @@ public class UserDao {
         try(Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID)) {
             preparedStatement.setInt(1, id);
-            //System.out.printf(preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()){
@@ -104,6 +105,7 @@ public class UserDao {
         List<User> users = new ArrayList<>();
         try(Connection connection = getConnection();
             Statement statement = connection.createStatement()) {
+
             ResultSet rs = statement.executeQuery(SELECT_ALL_USERS);
 
             while (rs.next()){
